@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Welcome</title>
+	</head>
+	<body>
+	<h1>Welcome to Spark {{ name }}</h1>
+	<p>{{#queryLastName}}{{ . }}{{/queryLastName}}</p>
+	
+	<form method="post" action="/handlePost">
+		<input type="text" name="food" placeholder="food" required>
+		<input type="number" name="number" placeholder="number of">
+		<button>Submit</button>
+	</form>
+	
+	</body>
+</html>

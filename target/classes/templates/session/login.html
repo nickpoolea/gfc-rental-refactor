@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+
+{{#user}}
+<h1>Welcome {{ firstName }} {{ lastName }}</h1>
+<p>Username: {{ username }}</p>
+<p>Password: {{ password }}</p>
+{{/user}}
+
+<form method="post" action="/login"	>
+	<input type="text" name="username" placeholder="username" required>
+	<input type="password" name="password" placeholder="password" required>
+	<input type="text" name="firstName" placeholder="First Name" required>
+	<input type="text" name="lastName" placeholder="Last Name" required>
+	<button>submit</button>
+</form>
+
+
+
+</body>
+</html>

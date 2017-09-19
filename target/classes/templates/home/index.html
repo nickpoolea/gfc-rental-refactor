@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Apartments</title>
+</head>
+<body>
+
+	<h1>Apartments</h1>
+	
+		<div>
+			<ul>
+			<#list apartments as apartment>
+				<li><a href="/apartments/${apartment.id}">${ apartment.address }</a></li>
+			</#list>
+			</ul>
+		</div>
+
+</body>
+</html>
