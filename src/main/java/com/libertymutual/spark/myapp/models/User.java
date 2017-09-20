@@ -1,51 +1,48 @@
 package com.libertymutual.spark.myapp.models;
 
-public class User {
+import org.javalite.activejdbc.Model;
 
-	private String username;
-	private String password;
-	private String firstName;
-	private String lastName;
-	
+public class User extends Model {
+
 	public User() {}
 	
-	public User(String username, String password, String firstName, String lastName) {
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public User(String email, String password, String firstName, String lastName) {
+		setEmail(email);		
+		setPassword(password);
+		setFirstName(firstName);
+		setLastName(lastName);
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return getString("email");
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		set("email", email);
 	}
 
 	public String getPassword() {
-		return password;
+		return getString("password");
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		set("password", password);
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return getString("first_name");
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		set("first_name", firstName);
 	}
 
 	public String getLastName() {
-		return lastName;
+		return getString("last_name");
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		set("last_name", lastName);
 	}
 
 }

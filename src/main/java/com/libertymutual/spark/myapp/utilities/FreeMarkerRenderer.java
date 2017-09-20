@@ -5,13 +5,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
 
-import freemarker.core.ParseException;
 import freemarker.template.Configuration;
-import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import freemarker.template.TemplateNotFoundException;
 
 public class FreeMarkerRenderer {
 	
