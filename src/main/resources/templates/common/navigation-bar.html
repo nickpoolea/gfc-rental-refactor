@@ -1,0 +1,11 @@
+	<#if !currentUser??>
+		<a href="/login">Login</a>
+		<a href="/users/new">Sign up</a>
+	<#else>
+		<h3>Welcome ${currentUser.firstName} (${currentUser.email})</h3>
+		<a href="/apartments/new">Add a listing</a>
+		<a href="/apartments/mine">Your listings</a>
+		<form method="get" action="/logout">
+			<button>Logout</button>
+		</form>
+	</#if>

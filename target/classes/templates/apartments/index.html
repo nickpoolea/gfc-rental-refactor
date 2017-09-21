@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Your Apartments</title>
+	</head>
+	<body>
+	<#include "/common/navigation-bar.html">
+	<h1>Your Listings</h1>
+	<h2>Active Listings</h2>
+	
+		<#list activeApartments>
+	
+	<ul>
+		<#items as apartment>
+			<li>
+			<a href="/apartments/${apartment.id}">
+			${apartment.address}
+			</a>
+			</li>
+		</#items>
+	</ul>
+	
+	</#list>
+	
+	<h2>Inactive Listings</h2>
+	
+		<#list inactiveApartments>
+	
+	<ul>
+		<#items as apartment>
+			<li>
+			<a href="/apartments/${apartment.id}">
+			${apartment.address}
+			</a>
+			</li>
+		</#items>
+	</ul>
+	
+	</#list>
+	
+
+
+	</body>
+</html>

@@ -1,9 +1,10 @@
-drop table if exists users;
+DROP TABLE IF EXISTS users;
 
-create table users (
-	id BIGSERIAL primary key not null
-	,first_name VARCHAR(255) not null
-	,last_name  VARCHAR(255) not null
-	,email VARCHAR(255) unique not null
-	,password VARCHAR(255) not null
+CREATE TABLE users
+(
+  id bigserial PRIMARY KEY NOT NULL,
+  email varchar(255) UNIQUE NOT NULL,
+  password varchar(255) NOT NULL,
+  first_name varchar(255) NOT NULL,
+  last_name varchar(255) NOT NULL
 );

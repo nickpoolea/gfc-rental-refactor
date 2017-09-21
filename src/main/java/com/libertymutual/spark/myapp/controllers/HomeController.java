@@ -19,7 +19,7 @@ public class HomeController {
 			Map<String, Object> model = new HashMap<String, Object>();
 			model.put("apartments", Apartment.findAll());
 			model.put("currentUser", req.session().attribute("currentUser"));
-			return FreeMarkerRenderer.getInstance().render("/home/index.html", model);
+			return FreeMarkerRenderer.getInstance().render("/home/index.html", model, req);
 		}
 	};
 	

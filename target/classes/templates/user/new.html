@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Signup</title>
+	</head>
+	<body>
+	<#include "/common/navigation-bar.html">
+	<a href="/">Back</a>
+	
+	<form method="post" action="/users">
+		<input type="email" name="email" placeholder="Email" required>
+		<input type="password" name="password" placeholder="Password" required>
+		<input type="text" name="first_name" placeholder="First Name" required>
+		<input type="text" name="last_name" placeholder="Last Name" required>
+		<button>Sign up</button>
+		<input type="hidden" name="csrf" value="${csrf_token}">
+	</form>
+	
+	</body>
+</html>

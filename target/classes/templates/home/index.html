@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Apartments</title>
+		<title>Apartment Listing</title>
 	</head>
 	<body>
-
-	<a href="/apartments/new">New Apartment</a>
-
-	<#if !currentUser??>
-		<a href="/login">Login</a>
-		<a href="/signup">Signup</a>
-	<#else>
-		<h3>Welcome ${currentUser.firstName} (${currentUser.email})</h3>
-		<a href="/logout">Logout</a>
-	</#if>
-
-	<h1>Apartments</h1>	
+	
+	<#include "/common/navigation-bar.html">
+	
+	<h1>Apartments!</h1>	
 	<#list apartments>	
 		<ul>
 		<#items as apartment>
+		<#if apartment.isActive>
 			<li><a href="/apartments/${apartment.id}">${apartment.address}</a></li>
+		</#if>
 		</#items>
 		</ul>
 		<#else>

@@ -18,7 +18,7 @@ public class SessionController {
 	public static final Route newForm = (Request req, Response res) -> {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("returnPath", req.queryParams("returnPath"));
-		return FreeMarkerRenderer.getInstance().render("/session/login.html", model);
+		return FreeMarkerRenderer.getInstance().render("/session/login.html", model, req);
 	};
 	
 	public static final Route create = (Request req, Response res) -> {
@@ -31,7 +31,6 @@ public class SessionController {
 				req.session().attribute("currentUser", user);
 			}
 		}
-		System.out.println(req.queryParams("returnPath"));
 		res.redirect(req.queryParamOrDefault("returnPath", "/"));
 		return "";
 	};

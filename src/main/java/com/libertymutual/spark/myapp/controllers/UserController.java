@@ -13,14 +13,14 @@ import spark.Route;
 public class UserController {
 	
 	public static Route newForm = (Request req, Response res) -> {
-		return FreeMarkerRenderer.getInstance().render("/user/signup.html", null);
+		return FreeMarkerRenderer.getInstance().render("/user/new.html", null, req);
 	};
 
 	public static Route create = (Request req, Response res) -> {
 		String email = req.queryParams("email");
 		String password = BCrypt.hashpw(req.queryParams("password"), BCrypt.gensalt());
-		String firstName = req.queryParams("firstName");
-		String lastName = req.queryParams("lastName");
+		String firstName = req.queryParams("first_name");
+		String lastName = req.queryParams("last_name");
 		
 		User user  = new User (email, password, firstName, lastName);
 		

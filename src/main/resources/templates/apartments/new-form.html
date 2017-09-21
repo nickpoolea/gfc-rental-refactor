@@ -4,19 +4,20 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	
+	<#include "/common/navigation-bar.html">
 	<h1>Create a new Apartment</h1>
 	
 	<form method="post" action="/apartments">
 		<input type="text" name="address" placeholder="Address">
 		<input type="text" name="city" placeholder="City">
 		<input type="text" name="state" placeholder="State">
-		<input type="number" name="zipCode" placeholder="Zip Code">
-		<input type="number" name="numberOfBedrooms" placeholder="# of Bedrooms">
-		<input type="number" name="numberOfBathrooms" placeholder="# of Bathrooms">
-		<input type="number" name="squareFootage" placeholder="Square Footage">
+		<input type="text" name="zip_code" placeholder="Zip Code">
+		<input type="number" name="number_of_bedrooms" placeholder="# of Bedrooms">
+		<input type="number" name="number_of_bathrooms" placeholder="# of Bathrooms">
+		<input type="number" name="square_footage" placeholder="Square Footage">
 		<input type="number" name="rent" placeholder="Rent">
-		<button>Submit</button>
+		<button>Add listing</button>
+		<input type="hidden" name="csrf" value="${csrf_token}">
 	</form>
 
 	</body>

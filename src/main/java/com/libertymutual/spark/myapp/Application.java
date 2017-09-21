@@ -1,62 +1,73 @@
 package com.libertymutual.spark.myapp;
 
-import org.mindrot.jbcrypt.BCrypt;
-
-
 import static spark.Spark.*;
 
 import com.libertymutual.spark.myapp.controllers.ApartmentController;
+import com.libertymutual.spark.myapp.controllers.ActivationController;
 import com.libertymutual.spark.myapp.controllers.ApartmentApiController;
 import com.libertymutual.spark.myapp.controllers.HomeController;
+import com.libertymutual.spark.myapp.controllers.LikeController;
 import com.libertymutual.spark.myapp.controllers.SessionController;
 import com.libertymutual.spark.myapp.controllers.UserApiController;
 import com.libertymutual.spark.myapp.controllers.UserController;
 import com.libertymutual.spark.myapp.filters.SecurityFilters;
-import com.libertymutual.spark.myapp.models.Apartment;
-import com.libertymutual.spark.myapp.models.User;
-import com.libertymutual.spark.myapp.utilities.AutoCloseableDb;
+import com.libertymutual.spark.myapp.utilities.SeedData;
 
 public class Application {
 	
 	public static void main(String[] args) {
 		
-		String password = "Password";
-		String encrytedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		SeedData.create();
 		
-		try (AutoCloseableDb db = new AutoCloseableDb()) {
-			User.deleteAll();
-			new User("NPA", encrytedPassword, "Nick", "Poole").saveIt();
-			
-			Apartment.deleteAll();
-			new Apartment(2000, 3, 1, 1000, "123 Main", "Honolulu", "Hi", 96825).saveIt();
-			new Apartment(1500, 2, 2, 750, "123 Koko Isle", "Honolulu", "Hi", 96825).saveIt();
-		}
+		before("/*", SecurityFilters.checkIfSessionIsNew);
+
+		get("/", HomeController.index);
+		get("/login", SessionController.newForm);
 		
-		get("/",               HomeController.index);
+		before("/login", SecurityFilters.checkSubmittedCsrfToken);
+		post("/login", SessionController.create);
+		get("logout", SessionController.destroy);
 		
 		path("/apartments", () -> {
-			before("/new", SecurityFilters.isAuthenticated);
 			get("/new", ApartmentController.newForm);
 			
+			before("", SecurityFilters.checkSubmittedCsrfToken);
 			before("", SecurityFilters.isAuthenticated);
-			post("",    ApartmentController.create);
+			post("", ApartmentController.create);
 			
+			get("/mine", ApartmentController.index);
 			get("/:id", ApartmentController.details);
+			
+			before("/:id/like", SecurityFilters.checkSubmittedCsrfToken);
+			before("/:id/like", SecurityFilters.isAuthenticated);
+			post("/:id/like", LikeController.create);
+			
+			before("/:id/deactivations", SecurityFilters.checkSubmittedCsrfToken);
+			before("/:id/deactivations", SecurityFilters.isAuthenticated);
+			post("/:id/deactivations", ActivationController.update);
+			
+			before("/:id/activations", SecurityFilters.checkSubmittedCsrfToken);
+			before("/:id/activations", SecurityFilters.isAuthenticated);
+			post("/:id/activations", ActivationController.update);
 		});
 		
+		path("/users", () -> {
+			get("/new", UserController.newForm);
+			before("", SecurityFilters.checkSubmittedCsrfToken);
+			post("", UserController.create);
+		});
 		
-		get("/login",          SessionController.newForm);
-		post("/login",         SessionController.create);
-		get("logout",          SessionController.destroy);
-		
-		get("signup",          UserController.newForm);
-		post("signup",         UserController.create);
 			
 		path("/api", () -> {
 			get("/apartments/:id", ApartmentApiController.details);
-			post("/apartments",    ApartmentApiController.create);
-			get("/users/:id",      UserApiController.details);
-			post("/users",         UserApiController.create);
+			
+			before("/apartments", SecurityFilters.checkSubmittedCsrfToken);
+			post("/apartments", ApartmentApiController.create);
+			
+			get("/users/:id", UserApiController.details);
+			
+			before("/apartments", SecurityFilters.checkSubmittedCsrfToken);
+			post("/users", UserApiController.create);
 		});
 	}
 	
