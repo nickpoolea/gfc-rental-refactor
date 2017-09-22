@@ -30,17 +30,11 @@ public class SecurityFilters {
 		if (req.requestMethod() == "POST") {
 			String serverToken = req.session().attribute("csrf_token");
 			String submittedToken = req.queryParams("csrf");
-			System.out.println("Server: " + serverToken);
-			System.out.println("Submitted: " + submittedToken);
 
 			if (!serverToken.equals(submittedToken)) {
 				res.redirect("/");
-				System.out.println("Tokens are not the same");
-				halt(404);
-			} else {
-				System.out.println("Tokens are the same");
-			}
+				halt("CSRF not authenticated");
+			} 
 		}
-		;
 	};
 }
